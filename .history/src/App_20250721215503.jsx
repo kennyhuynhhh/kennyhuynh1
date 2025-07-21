@@ -10,6 +10,7 @@ import WallBoundary from "./components/camera/WallBoundary";
 import CeilingBoundary from "./components/camera/CeilingBoundary";
 import useCameraControl from "./components/camera/useCameraControl.js";
 import CameraLock from "./components/camera/CameraLock.js";
+import { color } from "three/tsl";
 
 // 🧩 Scene loading and position extraction
 const wall_colour = 0x111111;

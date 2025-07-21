@@ -10,13 +10,14 @@ import WallBoundary from "./components/camera/WallBoundary";
 import CeilingBoundary from "./components/camera/CeilingBoundary";
 import useCameraControl from "./components/camera/useCameraControl.js";
 import CameraLock from "./components/camera/CameraLock.js";
+import { color } from "three/tsl";
 
 // 🧩 Scene loading and position extraction
 const wall_colour = 0x111111;
 function Scene({ onPositionsReady, hasClickedMonitor, monitorOpacity }) {
 	const { scene } = useGLTF("/kenny_portfolio_copy (13).glb");
 	const monitorScreenRef = useRef();
-	const texture_monitor = useLoader(TextureLoader, "/portfolio2.png");
+	const texture_monitor = useLoader(TextureLoader, "/portfolio1.png");
 	texture_monitor.flipY = false;
 	texture_monitor.wrapS = THREE.RepeatWrapping;
 	texture_monitor.repeat.x = -1;
@@ -556,7 +557,7 @@ export default function App() {
 							goTo("overview");
 							setHasClickedMonitor(false); // if needed to restore PNG
 							setShowMonitorIframe(false);
-							setMonitorOpacity(1);
+							setMonitorOpacity(0.7);
 						}}
 						style={{
 							padding: "8px 12px",

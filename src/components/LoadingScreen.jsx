@@ -5,7 +5,7 @@ const overlayStyle = {
   left: 0,
   width: "100vw",
   height: "100vh",
-  background: "rgba(52, 52, 52, 0.95)",
+  background: "rgba(0, 0, 0, 0.95)",
   color: "#fff",
   display: "flex",
   alignItems: "center",
@@ -13,7 +13,8 @@ const overlayStyle = {
   zIndex: 9999,
   fontSize: "3rem",
   flexDirection: "column",
-  font: 'Arial'
+  font: 'Arial',
+  transition: "opacity 1s ease"
 };
 
 export default function LoadingScreen() {
@@ -37,6 +38,12 @@ export default function LoadingScreen() {
         </svg>
       </div>
       Loading...
+      <p style={{ marginTop: 24, fontSize: "1.2rem", textAlign: "center" }}>
+        Left-click and drag to look around<br/>
+        Right-click and drag to move around<br/>
+        Scroll to zoom in and out<br/>
+        Click on objects to interact<br/>
+      </p>
     </div>
   );
 }

@@ -235,6 +235,21 @@ export default function App() {
 	const [showMonitorIframe, setShowMonitorIframe] = useState(false);
 	const [monitorOpacity, setMonitorOpacity] = useState(1);
 	const [loading, setLoading] = useState(true);
+	const [fadeOutLoading, setFadeOutLoading] = useState(false);
+	const [minDelayDone, setMinDelayDone] = useState(false);
+	const [sceneReady, setSceneReady] = useState(false);
+
+	useEffect(() => {
+		const timer = setTimeout(() => setMinDelayDone(true), 5000);
+		return () => clearTimeout(timer);
+	}, []);
+
+	useEffect(() => {
+		if (minDelayDone && sceneReady) {
+			setFadeOutLoading(true);
+			setTimeout(() => setLoading(false), 1000);
+		}
+	}, [minDelayDone, sceneReady]);
 
 	return (
 		<>
@@ -332,7 +347,7 @@ export default function App() {
 					<Scene
 						onPositionsReady={positions => {
 							setPositions(positions);
-							setLoading(false);
+							setSceneReady(true);
 						}}
 						hasClickedMonitor={hasClickedMonitor}
 						monitorOpacity={monitorOpacity}

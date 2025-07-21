@@ -10,19 +10,20 @@ import WallBoundary from "./components/camera/WallBoundary";
 import CeilingBoundary from "./components/camera/CeilingBoundary";
 import useCameraControl from "./components/camera/useCameraControl.js";
 import CameraLock from "./components/camera/CameraLock.js";
+import LoadingScreen from "./components/LoadingScreen.jsx";
 
 // 🧩 Scene loading and position extraction
 const wall_colour = 0x111111;
 function Scene({ onPositionsReady, hasClickedMonitor, monitorOpacity }) {
-	const { scene } = useGLTF("/kenny_portfolio_copy (13).glb");
+	const { scene } = useGLTF(import.meta.env.BASE_URL + 'kenny_portfolio_copy (13).glb');
 	const monitorScreenRef = useRef();
-	const texture_monitor = useLoader(TextureLoader, "/portfolio2.png");
+	const texture_monitor = useLoader(TextureLoader, import.meta.env.BASE_URL + 'portfolio2.png');
 	texture_monitor.flipY = false;
 	texture_monitor.wrapS = THREE.RepeatWrapping;
 	texture_monitor.repeat.x = -1;
 	texture_monitor.colorSpace = THREE.SRGBColorSpace;
 
-	const texture_resume = useLoader(TextureLoader, "/resume12.png");
+	const texture_resume = useLoader(TextureLoader, import.meta.env.BASE_URL + 'resume12.png');
 	texture_resume.flipY = false;
 	texture_resume.wrapS = THREE.RepeatWrapping;
 	texture_resume.repeat.x = 1;
@@ -33,7 +34,7 @@ function Scene({ onPositionsReady, hasClickedMonitor, monitorOpacity }) {
 	texture_resume.minFilter = THREE.LinearMipMapNearestFilter;
 	texture_resume.anisotropy = 32;
 
-	const texture_tablet = useLoader(TextureLoader, "/ipad.png");
+	const texture_tablet = useLoader(TextureLoader, import.meta.env.BASE_URL + 'ipad.png');
 	texture_tablet.flipY = true;
 	texture_tablet.wrapS = THREE.RepeatWrapping;
 	texture_tablet.repeat.x = 1;
@@ -233,9 +234,11 @@ export default function App() {
 	const [hasClickedMonitor, setHasClickedMonitor] = useState(false);
 	const [showMonitorIframe, setShowMonitorIframe] = useState(false);
 	const [monitorOpacity, setMonitorOpacity] = useState(1);
+	const [loading, setLoading] = useState(true);
 
 	return (
 		<>
+			{loading && <LoadingScreen />}
 			<Canvas
 				shadows
 				dpr={[Math.min(window.devicePixelRatio, 1.5)]}
@@ -327,7 +330,10 @@ export default function App() {
 
 				<Suspense fallback={null}>
 					<Scene
-						onPositionsReady={setPositions}
+						onPositionsReady={positions => {
+							setPositions(positions);
+							setLoading(false);
+						}}
 						hasClickedMonitor={hasClickedMonitor}
 						monitorOpacity={monitorOpacity}
 					/>
@@ -546,8 +552,8 @@ export default function App() {
 				<div
 					style={{
 						position: "absolute",
-						top: "20px",
-						right: "20px",
+						top: "60px",
+						right: "60px",
 						zIndex: 10,
 					}}
 				>
@@ -559,16 +565,32 @@ export default function App() {
 							setMonitorOpacity(1);
 						}}
 						style={{
-							padding: "8px 12px",
-							fontSize: "60px",
-							borderRadius: "20px",
+							width: "65px",
+							height: "65px",
+							borderRadius: "50%",
 							border: "none",
-							backgroundColor: "white",
+							backgroundColor: "rgba(255, 255, 255, 0.5)", // semi-transparent white
 							color: "black",
 							cursor: "pointer",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+							backdropFilter: "blur(4px)",
+							position: ""
 						}}
 					>
-						Back
+						<img
+							src={import.meta.env.BASE_URL + "back_arrow.png"}
+							alt="Back"
+							style={{
+								width: "45px",
+								height: "45px",
+								display: "block",
+								margin: "auto",
+								marginLeft: "-6px"
+							}}
+						/>
 					</button>
 				</div>
 			)}

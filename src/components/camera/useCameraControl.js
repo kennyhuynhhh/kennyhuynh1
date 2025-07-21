@@ -7,8 +7,8 @@ export default function useCameraControl() {
 	const views = useMemo(
 		() => ({
 			overview: {
-				position: new THREE.Vector3(-6.5, 21.5, -1),
-				target: new THREE.Vector3(-3, 14.7, -12),
+				position: new THREE.Vector3(-8, 23.5, 5),
+				target: new THREE.Vector3(-3, 12.5, -12),
 			},
 			monitor: {
 				position: new THREE.Vector3(-0.5, 11, -12),

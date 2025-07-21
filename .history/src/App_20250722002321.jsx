@@ -440,7 +440,7 @@ export default function App() {
 					>
 						<iframe
 							key="monitor_iframe"
-							src="https://kennyhuynhhh.github.io/kenny_website/"
+							src={`https://kennyhuynhhh.github.io/kenny_website/?cb=${Date.now()}`}
 							width={858}
 							height={482}
 							allow="fullscreen"
